@@ -1,4 +1,4 @@
-//@external module
+//@external modules
 const express = require("express");
 const { App, db } = require("./services/serviceExporter");
 

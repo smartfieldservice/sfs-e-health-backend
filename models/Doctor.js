@@ -14,7 +14,8 @@ const doctorSchema = mongoose.Schema({
             type : String
         },
         fees : {
-            type : Number
+            type : Number,
+            default : 0
         },
         specialist :{
             type : String
@@ -25,6 +26,10 @@ const doctorSchema = mongoose.Schema({
         experience: {
             type: Number,
             default : 0
+        },
+        slug : {
+            type : String,
+            unique : true
         }
 
     },{

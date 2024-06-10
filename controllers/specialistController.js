@@ -14,7 +14,7 @@ const getSpecialists = async(req, res) => {
 
         specialists = await functions.pagination(req.query.page, req.query.limit, specialists);
 
-        res.status(200).json({ message : `${specialists.length} field found` , data : specialists });
+        res.status(200).json({ message : `${specialists.length} fields found` , data : specialists });
 
     } catch (error) {
         res.status(400).json({ message : error })
@@ -42,7 +42,7 @@ const createSpecialist = async(req, res) => {
 
             await specialist.save();
 
-            res.status(201).json({ message : "New Specialist Field Created Successfully !", data : specialist})
+            res.status(201).json({ message : "New Specialist Created Successfully !", data : specialist})
         }
     } catch (error) {
         res.status(400).json({ message : error })
@@ -75,7 +75,7 @@ const editSpecialist = async(req, res) => {
                     new : true
                 })
 
-                res.status(201).json({ message : "New Specialist Field Updated Successfully !", data : specialist})
+                res.status(201).json({ message : "Specialist Updated Successfully !", data : specialist})
             }
         }
     } catch (error) {
@@ -97,7 +97,7 @@ const deleteSpecialist = async(req, res) => {
                 res.status(404).json({message : "Not Found"});
              }else{
                 specialist = await Specialist.findByIdAndDelete({ _id : req.query.id });
-                res.status(201).json({ message : "New Specialist Field Deleted Successfully !", data : specialist})
+                res.status(201).json({ message : "Specialist Deleted Successfully !", data : specialist})
             }
         }
     } catch (error) {

@@ -1,9 +1,16 @@
 const { mongoose }=require("mongoose");
 
 const specialistSchema = mongoose.Schema({
-
-       
-    },{
+    
+    field : {
+        type : String,
+        required : true
+    },
+    slug : {
+        type : String,
+        unique : true
+    }
+},{
     toJSON : {
         transform : function(doc, ret){
             delete ret.__v;

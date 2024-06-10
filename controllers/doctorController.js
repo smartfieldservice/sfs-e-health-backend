@@ -17,7 +17,7 @@ const createDoctor = async(req, res) => {
     }
 }
 
-const editDoctors = async(req, res) => {
+const editDoctor = async(req, res) => {
 
     try {
         res.send("edit");
@@ -37,6 +37,6 @@ const deleteDoctor = async(req, res) => {
 
 module.exports = {  getDoctors,
                     createDoctor,
-                    editDoctors,
+                    editDoctor,
                     deleteDoctor
                 }

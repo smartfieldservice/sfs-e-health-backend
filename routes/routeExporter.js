@@ -1,3 +1,8 @@
+//@internal module
 const doctorRoute = require("./doctorRoute");
+const specialistRoute = require("./specialistRoute");
 
-module.exports = {  doctorRoute }
+//@exports
+module.exports = {  doctorRoute,
+                    specialistRoute
+                }

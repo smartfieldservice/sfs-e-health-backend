@@ -6,7 +6,8 @@ const logger = require('morgan');
 const dotenv = require('dotenv').config();
 
 //@external module
-const { doctorRoute } = require("../routes/routeExporter");
+const { doctorRoute, 
+        specialistRoute } = require("../routes/routeExporter");
 
 module.exports = async(app) => {
 
@@ -17,6 +18,7 @@ module.exports = async(app) => {
 
     app
         .use("/doctor", doctorRoute)
+        .use("/specialist", specialistRoute)
 
     if(process.env.NODE_ENV === "development"){
         app.use(logger("dev"));

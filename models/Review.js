@@ -1,9 +1,10 @@
-const { mongoose }=require("mongoose");
+const { mongoose, Schema }=require("mongoose");
 
 const reviewSchema = mongoose.Schema({
 
     doctorId :{
         type : Schema.ObjectId,
+        ref : "doctor",
         required : true
     },
     review : {

@@ -17,10 +17,14 @@ const doctorSchema = mongoose.Schema({
             type : Number
         },
         specialist :{
-            type : Array
+            type : String
         },
         availableTime : {
             type : String
+        },
+        experience: {
+            type: Number,
+            default : 0
         }
 
     },{
@@ -34,4 +38,4 @@ const doctorSchema = mongoose.Schema({
         timestamps : true
 });
 
-module.exports = mongoose.module('doctor', doctorSchema);
+module.exports = mongoose.model('doctor', doctorSchema);

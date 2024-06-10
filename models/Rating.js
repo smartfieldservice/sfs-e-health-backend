@@ -4,6 +4,7 @@ const ratingSchema = mongoose.Schema({
 
     doctorId :{
         type : Schema.ObjectId,
+        ref : "doctor",
         required : true
     },
     rating : {

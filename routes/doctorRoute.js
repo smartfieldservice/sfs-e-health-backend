@@ -1,6 +1,6 @@
 const { getDoctors, 
         createDoctor, 
-        editDoctors, 
+        editDoctor, 
         deleteDoctor } = require("../controllers/doctorController");
 
 const doctorRoute = require("express").Router();
@@ -9,7 +9,7 @@ doctorRoute
         .route("/")
         .get(getDoctors)
         .post(createDoctor)
-        .put(editDoctors)
+        .put(editDoctor)
         .delete(deleteDoctor)
     
 module.exports = doctorRoute;

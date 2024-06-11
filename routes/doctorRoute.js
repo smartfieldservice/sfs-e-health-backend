@@ -1,24 +1,17 @@
 //@external modules
 const doctorRoute = require("express").Router();
-const multer = require("multer");
 
 //@internal modules
-const { getDoctors, 
-        createDoctor, 
-        editDoctor, 
-        deleteDoctor } = require("../controllers/doctorController");
-const { s3Upload, doctorValidation, validation } = require('../middlewares/middlewareExporter')
-
-//@create an upload instance
-const upload = multer({
-        storage : s3Upload.storageConfig
-});
+const { doctorController } =require("../controllers/controllerExporter");
+const { doctorValidation, 
+        validation } = require('../middlewares/middlewareExporter');
+const { doctorImageUpload } = require("../utilities/utilityExporter");
 
 doctorRoute
         .route("/")
-        .get(getDoctors)
-        .post(doctorValidation.validationRules, validation.validate, createDoctor)
-        .put(editDoctor)
-        .delete(deleteDoctor)
+        .get(doctorController.getDoctors)
+        .post(doctorImageUpload.doctorImage, doctorValidation.validationRules, validation.validate, doctorController.createDoctor)
+        .put(doctorController.editDoctor)
+        .delete(doctorController.deleteDoctor)
     
 module.exports = doctorRoute;

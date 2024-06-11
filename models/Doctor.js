@@ -11,7 +11,7 @@ const doctorSchema = mongoose.Schema({
             required : true
         },
         image :{
-            type : String
+            type : String,
         },
         fees : {
             type : Number,

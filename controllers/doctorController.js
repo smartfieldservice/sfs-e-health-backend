@@ -33,6 +33,7 @@ const createDoctor = async(req, res) => {
                 name,
                 institute,
                 fees,
+                image : req.file ? req.file.location : "Image not available",
                 specialist,
                 availableTime,
                 experience,

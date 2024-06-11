@@ -41,7 +41,7 @@ const createDoctor = async(req, res) => {
 
             await doctor.save();
 
-            res.status(201).json({ message : "New Doctor Created Successfully !", doctor : specialist})
+            res.status(201).json({ message : "New Doctor Created Successfully !", data : doctor })
         }
 
     } catch (error) {

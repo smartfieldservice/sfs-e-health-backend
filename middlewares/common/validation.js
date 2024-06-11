@@ -5,12 +5,8 @@ const validate = async(req, res, next) => {
 
     try {
 
-        //console.log(errors)
-        
         //@check the validation result
         const errors = validationResult(req);
-
-        //console.log(errors)
 
         //@if errors occurs during validation
         if(!errors.isEmpty()){

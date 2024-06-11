@@ -7,7 +7,7 @@ const { getDoctors,
         createDoctor, 
         editDoctor, 
         deleteDoctor } = require("../controllers/doctorController");
-const { s3Upload } = require('../middlewares/middlewareExporter')
+const { s3Upload, doctorValidation, validation } = require('../middlewares/middlewareExporter')
 
 //@create an upload instance
 const upload = multer({
@@ -17,7 +17,7 @@ const upload = multer({
 doctorRoute
         .route("/")
         .get(getDoctors)
-        .post(createDoctor)
+        .post(doctorValidation.validationRules, validation.validate, createDoctor)
         .put(editDoctor)
         .delete(deleteDoctor)
     

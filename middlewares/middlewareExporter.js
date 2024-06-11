@@ -1,3 +1,8 @@
-const s3Upload = require("./s3Upload");
+const s3Upload = require("./common/s3Upload");
+const validation = require("./common/validation");
+const specialistVaidation = require("./specialistVaidation");
 
-module.exports = { s3Upload }
+module.exports = {  s3Upload, 
+                    validation,
+                    specialistVaidation
+                }

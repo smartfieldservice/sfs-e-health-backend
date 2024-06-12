@@ -12,8 +12,10 @@ const upload = multer({
 //@file check
 const doctorImage = (req, res, next) => {
     if (req.headers['content-type'] && req.headers['content-type'].startsWith('multipart/form-data')) {
+        //@if file exist
         upload.single('image')(req, res, next);
     } else {
+        //@otherwise ignore
         next();
     }
 };

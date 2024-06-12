@@ -1,13 +1,14 @@
 //@internal module
 const express = require("express");
-const path = require("path");
 const cors = require("cors");
 const logger = require('morgan');
 const dotenv = require('dotenv').config();
 
 //@external module
 const { doctorRoute, 
-        specialistRoute } = require("../routes/routeExporter");
+        specialistRoute, 
+        reviewRoute,
+        ratingRoute } = require("../routes/routeExporter");
 
 module.exports = async(app) => {
 
@@ -19,6 +20,8 @@ module.exports = async(app) => {
     app
         .use("/doctor", doctorRoute)
         .use("/specialist", specialistRoute)
+        .use("/review", reviewRoute )
+        .use("/rating", ratingRoute )
 
     if(process.env.NODE_ENV === "development"){
         app.use(logger("dev"));

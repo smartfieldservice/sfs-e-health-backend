@@ -21,4 +21,5 @@ const ratingSchema = mongoose.Schema({
     timestamps : true
 });
 
-module.exports = mongoose.model('rating', ratingSchema)
+//@exports
+module.exports = mongoose.model('rating', ratingSchema);

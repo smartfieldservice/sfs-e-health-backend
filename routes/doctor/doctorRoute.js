@@ -2,10 +2,10 @@
 const doctorRoute = require("express").Router();
 
 //@internal modules
-const { doctorController } =require("../controllers/controllerExporter");
+const { doctorController } =require("../../controllers/controllerExporter");
 const { doctorValidation, 
-        validation } = require('../middlewares/middlewareExporter');
-const { doctorImageUpload } = require("../utilities/utilityExporter");
+        validation } = require('../../middlewares/middlewareExporter');
+const { doctorImageUpload } = require("../../utilities/utilityExporter");
 
 doctorRoute
         .route("/")

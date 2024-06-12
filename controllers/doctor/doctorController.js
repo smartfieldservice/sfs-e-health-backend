@@ -1,5 +1,5 @@
-const { Doctor } = require("../models/modelExporter");
-const { functions } = require("../utilities/utilityExporter");
+const { Doctor } = require("../../models/modelExporter");
+const { functions } = require("../../utilities/utilityExporter");
 
 const getDoctors = async(req, res) => {
 
@@ -42,7 +42,7 @@ const createDoctor = async(req, res) => {
 
             await doctor.save();
 
-            res.status(201).json({ message : "New Doctor Created Successfully !", data : doctor })
+            res.status(201).json({ message : "New Doctor Created Successfully !", data : doctor });
         }
 
     } catch (error) {

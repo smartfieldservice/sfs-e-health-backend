@@ -2,36 +2,47 @@ const { mongoose , Schema } = require('mongoose');
 
 const doctorSchema = mongoose.Schema({
 
-        name :{
+        name : {
             type : String,
             required : true
         },
-        institute :{
+        institute : {
             type : String,
             required : true
         },
-        image :{
+        image : {
             type : String,
         },
         fees : {
             type : Number,
             default : 0
         },
-        specialist :{
+        specialist : {
             type : String
         },
-        availableTime : {
+        startDay : {
+            type : String
+        },
+        endDay : {
+            type : String
+        },
+        startTime : {
+            type : String
+        },
+        endTime : {
             type : String
         },
         experience: {
             type: Number,
             default : 0
         },
+        biography : {
+            type : String
+        },
         slug : {
             type : String,
             unique : true
         }
-
     },{
         toJSON : {
             transform : function(doc, ret){

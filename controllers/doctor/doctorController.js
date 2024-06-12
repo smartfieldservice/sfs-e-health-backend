@@ -4,6 +4,7 @@ const { functions } = require("../../utilities/utilityExporter");
 const getDoctors = async(req, res) => {
 
     try {
+
         let doctors = Doctor.find({ });
 
         doctors = await functions.pagination(req.query.page, req.query.limit, doctors);

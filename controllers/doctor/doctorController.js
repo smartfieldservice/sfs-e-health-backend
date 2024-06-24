@@ -5,16 +5,30 @@ const getDoctors = async(req, res) => {
 
     try {
 
-        let doctors = Doctor.find({ });
+        const { page, limit, sort, speciality, rating } = req.query;
+
+        const queryObject = { };
+
+        if(speciality != 'all'){
+            queryObject.speciality = speciality;
+        }
+
+        if(rating != 'all'){
+            queryObject.rating = rating;
+        }
+
+        console.log(queryObject)
+
+        let doctors = Doctor.find( queryObject );
 
         let sortBy = "-updatedAt";
-        if(req.query.sort){
-            sortBy = req.query.sort.replace(","," ");
+        if(sort){
+            sortBy = sort.replace(","," ");
         }
 
         doctors = doctors.sort(sortBy);
 
-        doctors = await functions.pagination(req.query.page, req.query.limit, doctors);
+        doctors = await functions.pagination(page, limit, doctors);
         
         res.status(200).json({ message : `${doctors.length} fields found` , data : doctors });
 
@@ -126,8 +140,17 @@ const deleteDoctor = async(req, res) => {
     }
 }
 
+const searchDoctors = async(req,res) => {
+    try {
+        
+    } catch (error) {
+        res.status(400).json({ message : error })
+    }
+}
+
 module.exports = {  getDoctors,
                     createDoctor,
                     editDoctor,
-                    deleteDoctor
+                    deleteDoctor,
+                    searchDoctors
                 }

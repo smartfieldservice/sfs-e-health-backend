@@ -12,9 +12,16 @@ const getSpecialists = async(req, res) => {
         
         let specialists = Specialist.find({ });
 
+        let sortBy = "-updatedAt";
+        if(req.query.sort){
+            sortBy = req.query.sort.replace(","," ");
+        }
+
+        specialists = specialists.sort(sortBy);
+
         specialists = await functions.pagination(req.query.page, req.query.limit, specialists);
 
-        res.status(200).json({ message : `${specialists.length} fields found` , data : specialists });
+        res.status(200).json({ message : `${specialists.length} speciality found` , data : specialists });
 
     } catch (error) {
         res.status(400).json({ message : error })
@@ -25,9 +32,9 @@ const createSpecialist = async(req, res) => {
 
     try {
         
-        const { field } = req.body;
+        const { speciality } = req.body;
 
-        const slug = functions.generateSlug(field);
+        const slug = functions.generateSlug(speciality);
 
         let specialist = await Specialist.findOne({ slug });
 
@@ -36,7 +43,7 @@ const createSpecialist = async(req, res) => {
         }else{
 
             specialist = new Specialist({
-                field,
+                speciality,
                 slug
             });
 

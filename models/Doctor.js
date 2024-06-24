@@ -17,7 +17,7 @@ const doctorSchema = mongoose.Schema({
             type : Number,
             default : 0
         },
-        specialist : {
+        speciality : {
             type : String
         },
         availableFromDay : {

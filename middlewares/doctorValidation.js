@@ -20,9 +20,9 @@ const validationRules = [
         }
         return true;
     }),
-    body('specialist').custom((value, { req }) => {
+    body('speciality').custom((value, { req }) => {
         if (!value || value.trim() === '') {
-            throw new Error('Specialist is required!');
+            throw new Error('Speciality is required!');
         }
         return true;
     }),

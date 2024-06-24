@@ -2,7 +2,7 @@ const { mongoose }=require("mongoose");
 
 const specialistSchema = mongoose.Schema({
     
-    field : {
+    speciality : {
         type : String,
         required : true
     },

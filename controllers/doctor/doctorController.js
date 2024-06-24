@@ -143,6 +143,17 @@ const deleteDoctor = async(req, res) => {
 const searchDoctors = async(req,res) => {
     try {
         
+        if(req.params.clue !== ""){
+
+            const searchQuery = new RegExp( functions.escapeString(req.params.clue), "i");
+            
+            const doctors = await Doctor.find({
+                $or : [
+                    { name : searchQuery }
+                ]
+            });
+            res.status(200).json({ message : `${doctors.length} result found !`, data : doctors });  
+        }
     } catch (error) {
         res.status(400).json({ message : error })
     }

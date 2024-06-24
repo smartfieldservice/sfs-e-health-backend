@@ -13,5 +13,9 @@ doctorRoute
         .post(doctorImageUpload.doctorImage, doctorValidation.validationRules, validation.validate, doctorController.createDoctor)
         .put(doctorController.editDoctor)
         .delete(doctorController.deleteDoctor)
+
+doctorRoute
+        .route("/search/:clue")
+        .get(doctorController.searchDoctors)
     
 module.exports = doctorRoute;

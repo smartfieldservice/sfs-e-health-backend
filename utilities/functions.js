@@ -18,7 +18,13 @@ const pagination = async (pageNo,pageLimit,data)=>{
     }
 }
 
+//@function for regular expression string
+const escapeString = function(str){
+    return str.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"); 
+};
+
 //@exports
 module.exports = {  generateSlug,
-                    pagination
+                    pagination,
+                    escapeString
                 }

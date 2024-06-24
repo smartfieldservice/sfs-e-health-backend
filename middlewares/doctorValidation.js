@@ -26,6 +26,30 @@ const validationRules = [
         }
         return true;
     }),
+    body('availableFromDay').custom((value, { req }) => {
+        if (!value || value.trim() === '') {
+            throw new Error('Available from day is required!');
+        }
+        return true;
+    }),
+    body('availableToDay').custom((value, { req }) => {
+        if (!value || value.trim() === '') {
+            throw new Error('Available to day is required!');
+        }
+        return true;
+    }),
+    body('availableFromTime').custom((value, { req }) => {
+        if (!value || value.trim() === '') {
+            throw new Error('Available from time is required!');
+        }
+        return true;
+    }),
+    body('availableToTime').custom((value, { req }) => {
+        if (!value || value.trim() === '') {
+            throw new Error('Available to time is required!');
+        }
+        return true;
+    }),
     body('biography').custom((value, { req }) => {
         if (!value || value.trim() === '') {
             throw new Error('Biography is required!');
@@ -35,18 +59,18 @@ const validationRules = [
         }
         return true;
     }),
-    body('startDay').custom((value, { req }) => {
-        if (!value || value.trim() === '') {
-            throw new Error('Start is required!');
+    body('experience').custom((value, { req }) => {
+        if (value === undefined || value === null) {
+            throw new Error('Experience is required!');
+        }
+        if (isNaN(value)) {
+            throw new Error('Experience must be a number!');
+        }
+        if (value < 0) {
+            throw new Error('Experience cannot be negative!');
         }
         return true;
     }),
-    body('endDay').custom((value, { req }) => {
-        if (!value || value.trim() === '') {
-            throw new Error('End is required!');
-        }
-        return true;
-    })
 ];
 
 //@exports

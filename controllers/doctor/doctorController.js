@@ -7,6 +7,13 @@ const getDoctors = async(req, res) => {
 
         let doctors = Doctor.find({ });
 
+        let sortBy = "-updatedAt";
+        if(req.query.sort){
+            sortBy = req.query.sort.replace(","," ");
+        }
+
+        doctors = doctors.sort(sortBy);
+
         doctors = await functions.pagination(req.query.page, req.query.limit, doctors);
         
         res.status(200).json({ message : `${doctors.length} fields found` , data : doctors });
@@ -20,7 +27,7 @@ const createDoctor = async(req, res) => {
 
     try {
 
-        const { name, institute, fees, specialist, availableTime, experience } = req.body;
+        const { name, institute, fees, specialist, availableFromDay, availableToDay, availableFromTime, availableToTime, experience, biography  } = req.body;
 
         const slug = functions.generateSlug(name);
 
@@ -28,16 +35,23 @@ const createDoctor = async(req, res) => {
 
         if(doctor){
             res.status(400).json("Already Exist");
+
+            //@delete the uploaded photo if exist
+
         }else{
 
             doctor = new Doctor({
                 name,
                 institute,
-                fees,
                 image : req.file ? req.file.location : "Image not available",
+                fees,
                 specialist,
-                availableTime,
+                availableFromDay,
+                availableToDay,
+                availableFromTime,
+                availableToTime,
                 experience,
+                biography,
                 slug
             });
 

@@ -20,16 +20,16 @@ const doctorSchema = mongoose.Schema({
         specialist : {
             type : String
         },
-        startDay : {
+        availableFromDay : {
             type : String
         },
-        endDay : {
+        availableToDay : {
             type : String
         },
-        startTime : {
+        availableFromTime : {
             type : String
         },
-        endTime : {
+        availableToTime : {
             type : String
         },
         experience: {

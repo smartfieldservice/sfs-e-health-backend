@@ -20,7 +20,7 @@ const validationRules = [
         }
         return true;
     }),
-    body('speciality').custom((value, { req }) => {
+    body('specialityId').custom((value, { req }) => {
         if (!value || value.trim() === '') {
             throw new Error('Speciality is required!');
         }

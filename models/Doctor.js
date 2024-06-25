@@ -17,8 +17,10 @@ const doctorSchema = mongoose.Schema({
             type : Number,
             default : 0
         },
-        speciality : {
-            type : String
+        specialityId : {
+            type : Schema.ObjectId,
+            ref : "specialist",
+            required : true
         },
         availableFromDay : {
             type : String
@@ -38,6 +40,10 @@ const doctorSchema = mongoose.Schema({
         },
         biography : {
             type : String
+        },
+        avgRating : {
+            type : Number,
+            default : 0
         },
         slug : {
             type : String,

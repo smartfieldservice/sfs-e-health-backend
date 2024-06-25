@@ -1,3 +1,4 @@
+const { isValidObjectId } = require("mongoose");
 const { Doctor } = require("../../models/modelExporter");
 const { functions } = require("../../utilities/utilityExporter");
 
@@ -19,7 +20,8 @@ const getDoctors = async(req, res) => {
 
         console.log(queryObject)
 
-        let doctors = Doctor.find( queryObject );
+        let doctors = Doctor.find( queryObject )
+                        .populate({ path : 'specialityId', select : 'speciality'});
 
         let sortBy = "-updatedAt";
         if(sort){
@@ -41,7 +43,7 @@ const createDoctor = async(req, res) => {
 
     try {
 
-        const { name, institute, fees, specialist, availableFromDay, availableToDay, availableFromTime, availableToTime, experience, biography  } = req.body;
+        const { name, institute, fees, specialityId, availableFromDay, availableToDay, availableFromTime, availableToTime, experience, biography  } = req.body;
 
         const slug = functions.generateSlug(name);
 
@@ -59,7 +61,7 @@ const createDoctor = async(req, res) => {
                 institute,
                 image : req.file ? req.file.location : "Image not available",
                 fees,
-                specialist,
+                specialityId,
                 availableFromDay,
                 availableToDay,
                 availableFromTime,
@@ -159,9 +161,26 @@ const searchDoctors = async(req,res) => {
     }
 }
 
+const addAverageRating = async(req, res) => {
+    try {
+        console.log("i am in doctor")
+        const avgRating = await Doctor.findByIdAndUpdate(
+            { _id : req.body.doctorId }, 
+            { avgRating : req.body.avgRating }, 
+            { new : true }
+        );
+
+        res.status(201).json({ message : "Rating added successfully !", data : avgRating });
+        
+    } catch (error) {
+        res.status(400).json({ message : error })
+    }
+}
+
 module.exports = {  getDoctors,
                     createDoctor,
                     editDoctor,
                     deleteDoctor,
-                    searchDoctors
+                    searchDoctors,
+                    addAverageRating
                 }

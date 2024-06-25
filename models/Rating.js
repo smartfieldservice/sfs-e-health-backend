@@ -7,7 +7,10 @@ const ratingSchema = mongoose.Schema({
         ref : "doctor",
         required : true
     },
-    rating : {
+    ratingSum : {
+        type : Number
+    },
+    ratingCount : {
         type : Number
     }
 },{

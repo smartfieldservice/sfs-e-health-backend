@@ -1,20 +1,60 @@
-const { Rating } = require("../../models/modelExporter");
+//@external module
+const { isValidObjectId, default: mongoose } = require("mongoose");
 
-const addRating = async(req, res) => {
+//@internal module
+const { Rating, Doctor } = require("../../models/modelExporter");
+
+
+const addRating = async(req, res, next) => {
 
     try {
 
         const { doctorId, rating } = req.body;
 
-        const rate = new Rating({
-            doctorId,
-            rating
-        });
+        if (!isValidObjectId(doctorId)) {
 
-        await rate.save();
+            return res.status(400).json({ message: "Invalid doctor ID" });
 
-        res.status(201).json({ message : "Rating added Successfully !", data : rate })
+        }else{
 
+
+            let rate = await Rating.findOne({ doctorId });
+
+            if(rate){
+                console.log("i am update");
+
+                let ratingSum = rate.ratingSum + rating;
+                let ratingCount = rate.ratingCount + 1;
+
+                console.log(ratingSum," ",ratingCount);
+
+                rate = await Rating.findOneAndUpdate( 
+                    { doctorId },
+                    { 
+                        ratingSum,
+                        ratingCount
+                    },
+                    { new : true }
+                );
+
+                req.body.avgRating = (ratingSum / ratingCount).toFixed(1);
+
+            }else{
+
+                console.log("i am add");
+
+
+                rate = await Rating.create({
+                    doctorId,
+                    ratingSum : rating,
+                    ratingCount : 1
+                });
+
+                req.body.avgRating = rating.toFixed(1);
+            }
+
+            next();
+        }
     } catch (error) {
         res.status(400).json({ message : error })
     }

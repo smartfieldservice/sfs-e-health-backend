@@ -2,11 +2,11 @@
 const ratingRoute = require('express').Router();
 
 //@internal module
-const { ratingController } = require('../../controllers/controllerExporter');
+const { ratingController, doctorController } = require('../../controllers/controllerExporter');
 
 ratingRoute
         .route("/")
-        .post(ratingController.addRating)
+        .post(ratingController.addRating, doctorController.addAverageRating)
 
 //@exports
 module.exports = ratingRoute;

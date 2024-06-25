@@ -2,7 +2,8 @@
 const doctorRoute = require("express").Router();
 
 //@internal modules
-const { doctorController } =require("../../controllers/controllerExporter");
+const { doctorController,
+        reviewController } =require("../../controllers/controllerExporter");
 const { doctorValidation, 
         validation } = require('../../middlewares/middlewareExporter');
 const { doctorImageUpload } = require("../../utilities/utilityExporter");
@@ -17,5 +18,9 @@ doctorRoute
 doctorRoute
         .route("/search/:clue")
         .get(doctorController.searchDoctors)
+
+doctorRoute
+        .route("/details/")
+        .get(doctorController.getDoctorDetails, reviewController.getReviews)
     
 module.exports = doctorRoute;

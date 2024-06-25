@@ -18,8 +18,6 @@ const getDoctors = async(req, res) => {
             queryObject.rating = rating;
         }
 
-        console.log(queryObject)
-
         let doctors = Doctor.find( queryObject )
                         .populate({ path : 'specialityId', select : 'speciality'});
 
@@ -177,10 +175,53 @@ const addAverageRating = async(req, res) => {
     }
 }
 
+const getDoctorDetails = async(req, res, next) => {
+    
+    try {
+        
+        const { id , slug} = req.query;
+
+        if(id){     ///@id for admin
+            
+            if(!isValidObjectId(id)){
+                res.status(400).json({message : "Invalid doctor id"});
+            }else{
+
+                let doctor = await Doctor.findById({ _id : id })
+                                .populate({ path : 'specialityId', select : 'speciality'});
+
+                if(!doctor){
+                    res.status(404).json({message : "Not Found"});
+                }else{
+
+                    req.body.details = doctor;
+                    next();
+                }
+            }
+        }else if(slug){     ///@slug for user
+
+            let doctor = await Doctor.findOne({ slug })
+                    .populate({ path : 'specialityId', select : 'speciality'});
+
+            if(!doctor){
+                res.status(404).json({message : "Not Found"});
+            }else{
+                req.body.details = doctor;
+                next();
+            }
+        }else{
+            res.status(401).json({ message : "Bad Request !"});
+        }
+    } catch (error) {
+        res.status(400).json({ message : error });
+    }
+}
+
 module.exports = {  getDoctors,
                     createDoctor,
                     editDoctor,
                     deleteDoctor,
                     searchDoctors,
-                    addAverageRating
+                    addAverageRating,
+                    getDoctorDetails
                 }

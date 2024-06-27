@@ -1,11 +1,14 @@
-const doctorController = require('../controllers/doctor/doctorController');
-const reviewController = require('../controllers/doctor/reviewController');
-const ratingController = require('../controllers/doctor/ratingController');
-const specialistController = require('../controllers/specialistController');
+const doctorController = require('./doctor/doctorController');
+const reviewController = require('./doctor/reviewController');
+const ratingController = require('./doctor/ratingController');
+const specialistController = require('./specialistController');
+const userController = require('./user/userController');
+
 
 //@exports
 module.exports = {  doctorController,
                     reviewController,
                     ratingController,
-                    specialistController
+                    specialistController,
+                    userController
                 }

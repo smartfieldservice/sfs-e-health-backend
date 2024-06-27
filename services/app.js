@@ -8,7 +8,8 @@ const dotenv = require('dotenv').config();
 const { doctorRoute, 
         specialistRoute, 
         reviewRoute,
-        ratingRoute } = require("../routes/routeExporter");
+        ratingRoute,
+        userRoute } = require("../routes/routeExporter");
 
 module.exports = async(app) => {
 
@@ -18,6 +19,7 @@ module.exports = async(app) => {
         .use(express.urlencoded({ extended : false }));
 
     app
+        .use("/user", userRoute)
         .use("/doctor", doctorRoute)
         .use("/specialist", specialistRoute)
         .use("/review", reviewRoute )

@@ -7,36 +7,40 @@ const { functions } = require('../../utilities/utilityExporter');
 
 
 const otpRequest = async(req, res) => {
-    
+
     try {
 
         let { phone } = req.body;
         phone = phone.startsWith('+') ? phone : `+${phone}`;
-
-        console.log(phone)
-
-        const otp = functions.generateOTP;
-        const csmsId = functions.generateRandomNumber;
+    
+        const otp = functions.generateOTP();
+        const csmsId = functions.generateRandomNumber();
         const message = `Your OTP code is ${otp}`;
         
-        //@OTP valid for 5 minutes
+        //@OTP valid for 2 minutes
         const otpExpiresAt = new Date(Date.now() + 2 * 60 * 1000);
+    
+        const payload = {
+            api_token: process.env.API_TOKEN,
+            sid: process.env.SID,
+            msisdn: phone,
+            sms: message,
+            csms_id: csmsId
+        };
+    
+        const url = `${process.env.DOMAIN}/api/v3/send-sms`;
 
-        const params = new URLSearchParams();
-
-        params.append('api_token', process.env.OTPAPITOKEN);
-        params.append('sid', process.env.OTPSID);
-        params.append('sms', message);
-        params.append('msisdn', phone);
-        params.append('csms_id', csmsId);
-
-        const response = await axios.post(process.env.OTPURL, params, {
+        const response = await axios.post(url, payload, {
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json'
             }
         });
 
+        console.log(response);
+
         if(response.data && response.data.status === 'SUCCESS'){
+
+            res.status(400).json({ message : response});
 
             let user = await User.findOne({ phone });
 
@@ -59,7 +63,7 @@ const otpRequest = async(req, res) => {
             }
             res.status(200).json({ message: 'OTP sent successfully', otp });
         }else{
-            res.status(500).json({ message: 'Failed to send OTP', error: data });
+            res.status(500).json({ message: 'Failed to send OTP', data: response.data });
         }
     } catch (error) {
         res.status(400).json({ errors : error.message });

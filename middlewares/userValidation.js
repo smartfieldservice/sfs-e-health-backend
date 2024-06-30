@@ -17,7 +17,9 @@ const validationRules = [
             throw new Error('Invalid phone number!');
         }
         return true;
-    })
+    }),
+
+    body('otp').optional().isString().withMessage('Enter OTP!')
 ];
 
 //@exports

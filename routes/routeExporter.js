@@ -5,6 +5,7 @@ const reviewRoute = require("./doctor/reviewRoute");
 const ratingRoute = require("./doctor/ratingRoute");
 const specialistRoute = require("./specialistRoute");
 const divisionRoute = require("./address/divisionRoute");
+const districtRoute = require("./address/districtRoute");
 
 //@exports
 module.exports = {  userRoute,
@@ -12,5 +13,6 @@ module.exports = {  userRoute,
                     ratingRoute,
                     reviewRoute,
                     specialistRoute,
-                    divisionRoute
+                    divisionRoute,
+                    districtRoute
                 }

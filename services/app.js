@@ -10,7 +10,8 @@ const { doctorRoute,
         reviewRoute,
         ratingRoute,
         userRoute, 
-        divisionRoute } = require("../routes/routeExporter");
+        divisionRoute, 
+        districtRoute } = require("../routes/routeExporter");
 
 module.exports = async(app) => {
 
@@ -26,6 +27,7 @@ module.exports = async(app) => {
         .use("/review", reviewRoute )
         .use("/rating", ratingRoute )
         .use("/seed-division", divisionRoute)
+        .use("/seed-district", districtRoute)
 
     if(process.env.NODE_ENV === "development"){
         app.use(logger("dev"));

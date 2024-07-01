@@ -3,6 +3,7 @@ const reviewController = require('./doctor/reviewController');
 const ratingController = require('./doctor/ratingController');
 const specialistController = require('./specialistController');
 const userController = require('./user/userController');
+const divisionController = require('./address/divisionController');
 
 
 //@exports
@@ -10,5 +11,6 @@ module.exports = {  doctorController,
                     reviewController,
                     ratingController,
                     specialistController,
-                    userController
+                    userController,
+                    divisionController
                 }

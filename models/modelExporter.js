@@ -4,6 +4,7 @@ const Specialist = require("./Specialist");
 const Patient = require("./Patient");
 const Rating = require("./Rating");
 const Review = require("./Review");
+const Division = require("./Division");
 
 
 module.exports = {  Doctor,
@@ -11,5 +12,6 @@ module.exports = {  Doctor,
                     Patient,
                     Rating,
                     Review,
-                    User
+                    User,
+                    Division
                 }

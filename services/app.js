@@ -1,8 +1,9 @@
 //@internal module
 const express = require("express");
 const cors = require("cors");
-const logger = require('morgan');
+const morgan = require('morgan');
 const dotenv = require('dotenv').config();
+const dashboardRouter = express.Router();
 
 //@external module
 const { doctorRoute, 
@@ -20,16 +21,22 @@ module.exports = async(app) => {
         .use(express.json({ limit : '50mb' }))
         .use(express.urlencoded({ extended : false }));
 
+    if (process.env.NODE_ENV === "development") {
+        app.use(morgan("dev"));
+    }
+
     app
         .use("/user", userRoute)
         .use("/doctor", doctorRoute)
-        .use("/specialist", specialistRoute)
         .use("/review", reviewRoute )
         .use("/rating", ratingRoute )
-        .use("/seed-division", divisionRoute)
-        .use("/seed-district", districtRoute)
 
-    if(process.env.NODE_ENV === "development"){
-        app.use(logger("dev"));
-    }
+    app
+        .use("/dashboard", dashboardRouter);
+
+    dashboardRouter
+        .use("/specialist", specialistRoute)
+        .use("/division", divisionRoute)
+        .use("/district", districtRoute);
+
 };

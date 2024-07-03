@@ -1,5 +1,5 @@
 //@external modules
-const { mongoose } = require("mongoose");
+const { mongoose, Schema } = require("mongoose");
 
 //@Create customer schema
 const userSchema = mongoose.Schema({
@@ -21,6 +21,18 @@ const userSchema = mongoose.Schema({
     gender : {
         type : String,
         enum : ['Male','Female','Others'],
+    },
+    divisionId : {
+        type : Schema.ObjectId,
+        ref : 'division'
+    },
+    districtId : {
+        type : Schema.ObjectId,
+        ref : 'district'
+    },
+    occupation : {
+        type : String,
+        enum : ['Employee','Student','HouseWife','Farmer','Others']
     },
     weight:{
         type : Number,

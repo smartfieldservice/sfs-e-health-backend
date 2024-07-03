@@ -179,38 +179,43 @@ const getDoctorDetails = async(req, res, next) => {
     
     try {
         
-        const { id , slug} = req.query;
+        let { id , slug } = req.query;
+        
+        let doctor;
 
-        if(id){     ///@id for admin
+        if(slug){
+
+            doctor = await Doctor.findOne({ slug })
+                        .populate({ path : 'specialityId', select : 'speciality'});
+            
+            if(doctor){
+                id = doctor._id;
+            }
+        }
+        if(id){
             
             if(!isValidObjectId(id)){
-                res.status(400).json({message : "Invalid doctor id"});
+
+                res.status(400).json({ message : "Not Found!" });
+
             }else{
 
-                let doctor = await Doctor.findById({ _id : id })
+                if(!doctor){
+                    doctor = await Doctor.findById({ _id : id })
                                 .populate({ path : 'specialityId', select : 'speciality'});
+                }
 
                 if(!doctor){
-                    res.status(404).json({message : "Not Found"});
-                }else{
 
+                    res.status(404).json({ message : "Not Found!" });
+
+                }else{
                     req.body.details = doctor;
                     next();
                 }
             }
-        }else if(slug){     ///@slug for user
-
-            let doctor = await Doctor.findOne({ slug })
-                    .populate({ path : 'specialityId', select : 'speciality'});
-
-            if(!doctor){
-                res.status(404).json({message : "Not Found"});
-            }else{
-                req.body.details = doctor;
-                next();
-            }
         }else{
-            res.status(401).json({ message : "Bad Request !"});
+            res.status(404).json({ message : "Not Found!"});
         }
     } catch (error) {
         res.status(400).json({ message : error });

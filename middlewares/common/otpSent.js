@@ -10,7 +10,8 @@ const OTP = async(req, res, next) => {
     try {
 
         let { phone } = req.body;
-        phone = phone.startsWith('+') ? phone : `+${phone}`;
+
+        //phone = phone.startsWith('+') ? phone : `+${phone}`;
     
         const otp = randomize('0','6');
         const message = `Your OTP code is ${otp}`;

@@ -14,7 +14,7 @@ const OTP = async(req, res, next) => {
         //phone = phone.startsWith('+') ? phone : `+${phone}`;
     
         const otp = randomize('0','6');
-        const message = `Your OTP code is ${otp}`;
+        const message = `Your Online Health OTP code is ${otp}`;
         
         const payload = {
             api_token: process.env.API_TOKEN,

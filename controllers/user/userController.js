@@ -9,7 +9,7 @@ const otpRequest = async(req, res) => {
 
     try {
 
-        const { phone, otp } = req.body;
+        const { phone, otp, response } = req.body;
 
         let user = await User.findOne({ phone });
 
@@ -31,7 +31,7 @@ const otpRequest = async(req, res) => {
             await user.save();
         }
 
-        res.status(200).json({ message: 'OTP sent successfully', otp });
+        res.status(200).json({ message: 'OTP sent successfully', otp , response });
 
     } catch (error) {
         res.status(400).json({ errors : error.message });

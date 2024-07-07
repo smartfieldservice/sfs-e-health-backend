@@ -32,6 +32,7 @@ const OTP = async(req, res, next) => {
 
             req.body.phone = phone;
             req.body.otp = otp;
+            req.body.response = response.data;
             next();
 
         } else {

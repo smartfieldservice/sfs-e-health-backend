@@ -44,7 +44,7 @@ const otpVerify = async(req, res) => {
         
         const { phone, otp } = req.body;
 
-        const user = await User.findOne({ phone });
+        let user = await User.findOne({ phone });
 
         if(user){
 
@@ -66,8 +66,8 @@ const otpVerify = async(req, res) => {
 
                 //@send the response
                 res.status(200).json({  message: 'OTP verified successfully', 
-                    _id : user._id, 
-                    phone : user.phone, 
+                    id : user.id, 
+                    phone , 
                     token : functions.generateAuthToken(user._id, phone)
                 });
 
@@ -81,7 +81,6 @@ const otpVerify = async(req, res) => {
         res.status(400).json({ errors : error.message });
     }
 }
-
 
 //@exports
 module.exports = {  otpRequest,

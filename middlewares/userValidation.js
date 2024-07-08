@@ -11,7 +11,7 @@ const validationRules = [
             throw new Error('Phone number should not be empty!');
         }
         
-        const phoneNumber = parsePhoneNumberFromString(value);
+        const phoneNumber = parsePhoneNumberFromString(value, "BD");
         
         if (!phoneNumber || !phoneNumber.isValid()) {
             throw new Error('Invalid phone number!');
@@ -19,7 +19,7 @@ const validationRules = [
         return true;
     }),
 
-    body('otp').optional().isString().withMessage('Enter OTP!')
+    body('otp').optional().isString().withMessage('Please enter OTP!')
 ];
 
 //@exports

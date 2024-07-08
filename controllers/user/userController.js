@@ -9,7 +9,7 @@ const otpRequest = async(req, res) => {
 
     try {
 
-        const { phone, otp, response } = req.body;
+        const { phone, otp } = req.body;
 
         let user = await User.findOne({ phone });
 
@@ -18,7 +18,7 @@ const otpRequest = async(req, res) => {
                     phone
                 },{
                     otp,
-                    otpExpiresAt : new Date(Date.now() + 2 * 60 * 1000)
+                    otpExpiresAt : new Date(Date.now() + 2 * 60 * 1000) //@opt validity 2 mins
                 },{
                 new : true
             });
@@ -26,13 +26,12 @@ const otpRequest = async(req, res) => {
             user = new User({
                 phone,
                 otp,
-                otpExpiresAt : new Date(Date.now() + 2 * 60 * 1000)
+                otpExpiresAt : new Date(Date.now() + 2 * 60 * 1000) //@opt validity 2 mins
             });
             await user.save();
         }
 
-        res.status(200).json({ message: 'OTP sent successfully', otp , response });
-
+        res.status(200).json({ message: 'OTP sent successfully', otp  });
     } catch (error) {
         res.status(400).json({ errors : error.message });
     }
@@ -43,8 +42,7 @@ const otpVerify = async(req, res) => {
     
     try {
         
-        let { phone, otp } = req.body;
-        phone = phone.startsWith('+') ? phone : `+${phone}`;
+        const { phone, otp } = req.body;
 
         const user = await User.findOne({ phone });
 
@@ -79,7 +77,6 @@ const otpVerify = async(req, res) => {
         }else{
             return res.status(404).json({ message: 'Not found' });
         }
-
     } catch (error) {
         res.status(400).json({ errors : error.message });
     }

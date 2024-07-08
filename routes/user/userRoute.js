@@ -7,9 +7,9 @@ const { userValidation,
         validation, 
         otpSent } = require("../../middlewares/middlewareExporter");
 
-/* userRoute
+userRoute
         .use(userValidation.validationRules, validation.validate);
- */
+
 userRoute
         .route("/send-otp")
         .post( otpSent.OTP, userController.otpRequest)

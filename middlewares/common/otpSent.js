@@ -9,10 +9,8 @@ const OTP = async(req, res, next) => {
 
     try {
 
-        let { phone } = req.body;
+        const { phone } = req.body;
 
-        //phone = phone.startsWith('+') ? phone : `+${phone}`;
-    
         const otp = randomize('0','6');
         const message = `Your Online Health OTP code is ${otp}`;
         
@@ -28,15 +26,10 @@ const OTP = async(req, res, next) => {
 
         if (response.data.status === "SUCCESS") {
             
-            console.log(response.data);
-
-            req.body.phone = phone;
             req.body.otp = otp;
-            req.body.response = response.data;
             next();
 
         } else {
-
             throw new Error('Failed to send OTP');
         }
     } catch (error) {

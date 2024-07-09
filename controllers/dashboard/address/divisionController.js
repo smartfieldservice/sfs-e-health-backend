@@ -1,4 +1,4 @@
-const { Division, District } = require("../../models/modelExporter");
+const { Division, District } = require("../../../models/modelExporter");
 
 //@seed division data
 const divisions = process.env.DIVISIONS.split(',');

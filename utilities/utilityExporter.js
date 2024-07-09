@@ -1,6 +1,6 @@
 const functions = require("./functions");
-const doctorImageUpload = require("./doctorImageUpload");
+const uploadAnyImage = require("./uploadAnyImage");
 
 module.exports = {  functions,
-                    doctorImageUpload
+                    uploadAnyImage
                 }

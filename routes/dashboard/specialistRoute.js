@@ -1,9 +1,9 @@
 const { getSpecialists, 
         createSpecialist, 
         editSpecialist, 
-        deleteSpecialist } = require("../controllers/specialistController");
+        deleteSpecialist } = require("../../controllers/dashboard/specialistController");
 const { specialistVaidation, 
-        validation } = require("../middlewares/middlewareExporter");
+        validation } = require("../../middlewares/middlewareExporter");
 
 //@external module
 const specialistRoute = require("express").Router();

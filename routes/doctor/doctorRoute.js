@@ -6,12 +6,12 @@ const { doctorController,
         reviewController } =require("../../controllers/controllerExporter");
 const { doctorValidation, 
         validation } = require('../../middlewares/middlewareExporter');
-const { doctorImageUpload } = require("../../utilities/utilityExporter");
+const { uploadAnyImage } = require("../../utilities/utilityExporter");
 
 doctorRoute
         .route("/")
         .get(doctorController.getDoctors)
-        .post(doctorImageUpload.doctorImage, doctorValidation.validationRules, validation.validate, doctorController.createDoctor)
+        .post(uploadAnyImage.imageUpload, doctorValidation.validationRules, validation.validate, doctorController.createDoctor)
         .put(doctorController.editDoctor)
         .delete(doctorController.deleteDoctor)
 

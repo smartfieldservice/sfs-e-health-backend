@@ -1,5 +1,5 @@
 //@internal module
-const { District, Division } = require("../../models/modelExporter");
+const { District, Division } = require("../../../models/modelExporter");
 const districts = JSON.parse(process.env.DISTRICTS);
 
 const seedDistrict = async(req, res) => {

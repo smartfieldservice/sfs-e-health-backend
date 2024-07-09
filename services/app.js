@@ -12,7 +12,8 @@ const { doctorRoute,
         ratingRoute,
         userRoute, 
         divisionRoute, 
-        districtRoute } = require("../routes/routeExporter");
+        districtRoute, 
+        adminRoute } = require("../routes/routeExporter");
 
 module.exports = async(app) => {
 
@@ -35,6 +36,7 @@ module.exports = async(app) => {
         .use("/dashboard", dashboardRouter);
 
     dashboardRouter
+        .use("/admin", adminRoute)
         .use("/specialist", specialistRoute)
         .use("/division", divisionRoute)
         .use("/district", districtRoute);

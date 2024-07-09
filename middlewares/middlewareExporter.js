@@ -4,11 +4,15 @@ const otpSent = require("./common/otpSent");
 const specialistVaidation = require("./specialistVaidation");
 const doctorValidation = require("./doctorValidation");
 const userValidation = require("./userValidation");
+const adminValidation = require("./admin/adminValidation");
+const adminLoginValidation = require("./admin/adminLoginValidation");
 
 module.exports = {  s3Upload, 
                     validation,
                     specialistVaidation,
                     doctorValidation,
                     userValidation,
-                    otpSent
+                    otpSent,
+                    adminValidation,
+                    adminLoginValidation
                 }

@@ -1,4 +1,4 @@
-const { districtController } = require('../../controllers/controllerExporter');
+const { districtController } = require('../../../controllers/controllerExporter');
 
 //@external modeule
 const divisionRoute = require('express').Router();

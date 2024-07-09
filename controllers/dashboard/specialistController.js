@@ -2,8 +2,8 @@
 const { isValidObjectId } = require("mongoose");
 
 //@internal modules
-const { Specialist } = require("../models/modelExporter");
-const { functions } = require("../utilities/utilityExporter");
+const { Specialist } = require("../../models/modelExporter");
+const { functions } = require("../../utilities/utilityExporter");
 
 
 const getSpecialists = async(req, res) => {

@@ -6,6 +6,8 @@ const doctorValidation = require("./doctorValidation");
 const userValidation = require("./userValidation");
 const adminValidation = require("./admin/adminValidation");
 const adminLoginValidation = require("./admin/adminLoginValidation");
+const adminSession = require("./admin/adminSession");
+const roleValidation = require("./common/roleValidation");
 
 module.exports = {  s3Upload, 
                     validation,
@@ -14,5 +16,7 @@ module.exports = {  s3Upload,
                     userValidation,
                     otpSent,
                     adminValidation,
-                    adminLoginValidation
+                    adminLoginValidation,
+                    adminSession,
+                    roleValidation
                 }

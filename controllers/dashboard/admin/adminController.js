@@ -15,7 +15,7 @@ const registerAdmin = async(req, res) => {
 
             //@delete the uploaded photo if exist
 
-        }else{
+        }else{ 
 
             const hashedPassword = await functions.hashedPassword( password );
 
@@ -56,8 +56,8 @@ const loginAdmin = async(req,res) => {
            //@send the response
            res.status(200).json({  message: 'Login successfull', 
                 id : admin.id, 
-                email : admin.email, 
-                token : functions.generateAuthToken(admin.id, email)
+                email : admin.email,
+                token : functions.generateAuthToken(admin.id, email, admin.role)
             });
         }
     } catch (error) {

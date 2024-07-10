@@ -2,9 +2,14 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 //@function for create an Authentication token for an account using jwt
-const generateAuthToken = (s1,s2) => {
-    return jwt.sign({ s1,s2 }, process.env.JWT_SECRET, { expiresIn: "14d" });
+const generateAuthToken = (id, email, role) => {
+    return jwt.sign({ id, email, role }, process.env.JWT_SECRET, { expiresIn: "14d" });
 };
+
+//@function for verify Authentication token of an account using jwt
+const verifyAuthToken = (authToken) => {
+    return jwt.verify( authToken, process.env.JWT_SECRET);
+}
 
 //@generate a slug from the given string
 const generateSlug = (str) => {
@@ -12,7 +17,7 @@ const generateSlug = (str) => {
 };
 
 //@function for pagination
-const pagination = async (pageNo,pageLimit,data)=>{
+const pagination = async (pageNo, pageLimit, data)=>{
 
     try {
         const page = parseInt(pageNo) || 1;
@@ -68,5 +73,6 @@ module.exports = {  generateAuthToken,
                     generateOTP,
                     generateRandomNumber,
                     hashedPassword,
-                    verifyPassword
+                    verifyPassword,
+                    verifyAuthToken
                 }

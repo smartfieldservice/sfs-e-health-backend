@@ -29,7 +29,7 @@ doctorRoute
 doctorRoute
         .route("/")
         .post(uploadAnyImage.imageUpload, doctorValidation.validationRules, validation.validate, doctorController.createDoctor)
-        .put(doctorController.editDoctor)
+        .put(uploadAnyImage.imageUpload, doctorValidation.validationRules, validation.validate, doctorController.editDoctor)
         .delete(doctorController.deleteDoctor)
     
 module.exports = doctorRoute;

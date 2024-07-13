@@ -94,17 +94,23 @@ const editDoctor = async(req, res) => {
                 res.status(404).json({message : "Not Found"});
              }else{
 
-                const { name, institute, fees, specialist, availableTime, experience } = req.body;
+                const { name, institute, fees, specialityId, availableFromDay, availableToDay, 
+                    availableFromTime, availableToTime, experience, biography  } = req.body;
 
                 doctor = await Doctor.findByIdAndUpdate({
                     _id : req.query.id
                 },{
                     name,
                     institute,
+                    image : req.file ? req.file.location : "Image not available",
                     fees,
-                    specialist,
-                    availableTime,
+                    specialityId,
+                    availableFromDay,
+                    availableToDay,
+                    availableFromTime,
+                    availableToTime,
                     experience,
+                    biography,
                     slug : functions.generateSlug(name)
                 }, {
                     new : true

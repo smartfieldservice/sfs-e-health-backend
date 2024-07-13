@@ -42,12 +42,10 @@ const createSpecialist = async(req, res) => {
             res.status(400).json("Already Exist");
         }else{
 
-            specialist = new Specialist({
+            specialist = await Specialist.create({
                 speciality,
                 slug
             });
-
-            await specialist.save();
 
             res.status(201).json({ message : "New Specialist Created Successfully !", data : specialist})
         }
@@ -71,16 +69,16 @@ const editSpecialist = async(req, res) => {
                 res.status(404).json({message : "Not Found"});
              }else{
 
-                const { field } = req.body;
+                const { speciality } = req.body;
 
                 specialist = await Specialist.findByIdAndUpdate({
                     _id : req.query.id
                 },{
-                    field,
-                    slug : functions.generateSlug(field)
+                    speciality,
+                    slug : functions.generateSlug(speciality)
                 }, {
                     new : true
-                })
+                });
 
                 res.status(201).json({ message : "Specialist Updated Successfully !", data : specialist})
             }

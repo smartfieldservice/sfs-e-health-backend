@@ -1,12 +1,18 @@
+//@external module
+const specialistRoute = require("express").Router();
+
+//@internal module
 const { getSpecialists, 
         createSpecialist, 
         editSpecialist, 
         deleteSpecialist } = require("../../controllers/dashboard/specialistController");
 const { specialistVaidation, 
-        validation } = require("../../middlewares/middlewareExporter");
+        validation, 
+        sessionValidation,
+        roleValidation } = require("../../middlewares/middlewareExporter");
 
-//@external module
-const specialistRoute = require("express").Router();
+specialistRoute
+        .use(sessionValidation.isLogin, roleValidation.requiredRole([process.env.SUPER_ADMIN, process.env.ADMIN]))
 
 specialistRoute
             .route("/")

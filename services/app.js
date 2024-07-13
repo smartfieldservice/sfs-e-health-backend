@@ -31,12 +31,12 @@ module.exports = async(app) => {
         .use("/doctor", doctorRoute)
         .use("/review", reviewRoute )
         .use("/rating", ratingRoute )
+        .use("/admin", adminRoute)
 
     app
         .use("/dashboard", dashboardRouter);
 
     dashboardRouter
-        .use("/admin", adminRoute)
         .use("/specialist", specialistRoute)
         .use("/division", divisionRoute)
         .use("/district", districtRoute);

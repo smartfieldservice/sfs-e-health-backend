@@ -5,15 +5,14 @@ const doctorRoute = require("express").Router();
 const { doctorController,
         reviewController } =require("../../controllers/controllerExporter");
 const { doctorValidation, 
-        validation } = require('../../middlewares/middlewareExporter');
+        validation, 
+        sessionValidation,
+        roleValidation } = require('../../middlewares/middlewareExporter');
 const { uploadAnyImage } = require("../../utilities/utilityExporter");
 
 doctorRoute
         .route("/")
         .get(doctorController.getDoctors)
-        .post(uploadAnyImage.imageUpload, doctorValidation.validationRules, validation.validate, doctorController.createDoctor)
-        .put(doctorController.editDoctor)
-        .delete(doctorController.deleteDoctor)
 
 doctorRoute
         .route("/search/:clue")
@@ -22,5 +21,15 @@ doctorRoute
 doctorRoute
         .route("/details/")
         .get(doctorController.getDoctorDetails, reviewController.getReviews)
+
+
+doctorRoute
+        .use(sessionValidation.isLogin, roleValidation.requiredRole([process.env.SUPER_ADMIN, process.env.ADMIN]))
+
+doctorRoute
+        .route("/")
+        .post(uploadAnyImage.imageUpload, doctorValidation.validationRules, validation.validate, doctorController.createDoctor)
+        .put(doctorController.editDoctor)
+        .delete(doctorController.deleteDoctor)
     
 module.exports = doctorRoute;

@@ -1,21 +1,28 @@
 const { isValidObjectId } = require("mongoose");
-const { Doctor } = require("../../models/modelExporter");
+const { Doctor, Specialist } = require("../../models/modelExporter");
 const { functions } = require("../../utilities/utilityExporter");
 
 const getDoctors = async(req, res) => {
 
     try {
 
-        const { page, limit, sort, speciality, rating } = req.query;
+        let { page, limit, sort, speciality, rating } = req.query;
 
         const queryObject = { };
 
-        if(speciality != 'all'){
-            queryObject.speciality = speciality;
+        if(speciality && speciality !== 'all'){
+
+            speciality = functions.generateSlug(speciality);
+
+            speciality = await Specialist.findOne({ slug  : speciality });
+
+            if(speciality){
+                queryObject.specialityId = speciality._id;
+            }
         }
 
-        if(rating != 'all'){
-            queryObject.rating = rating;
+        if(rating && rating !== 'all'){
+            queryObject.avgRating = Number( rating );
         }
 
         let doctors = Doctor.find( queryObject )
@@ -167,7 +174,7 @@ const searchDoctors = async(req,res) => {
 
 const addAverageRating = async(req, res) => {
     try {
-        console.log("i am in doctor")
+        
         const avgRating = await Doctor.findByIdAndUpdate(
             { _id : req.body.doctorId }, 
             { avgRating : req.body.avgRating }, 

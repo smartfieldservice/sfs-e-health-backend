@@ -32,6 +32,7 @@ module.exports = async(app) => {
         .use("/review", reviewRoute )
         .use("/rating", ratingRoute )
         .use("/admin", adminRoute)
+        .use("/get-specialist", specialistRoute)
 
     app
         .use("/dashboard", dashboardRouter);

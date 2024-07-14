@@ -29,7 +29,7 @@ const addRating = async(req, res, next) => {
                     },
                     { new : true }
                 );
-                req.body.avgRating = (ratingSum / ratingCount).toFixed(1);
+                req.body.avgRating = Math.round(ratingSum / ratingCount);
             }else{
 
                 rate = await Rating.create({

@@ -12,12 +12,16 @@ const { specialistVaidation,
         roleValidation } = require("../../middlewares/middlewareExporter");
 
 specialistRoute
+        .route("/")
+        //@dashboard/specialist?page=1&limit=5 [for admin]
+        //@get-specialist?page=1&limit=5 [for user]
+        .get(getSpecialists)
+
+specialistRoute
         .use(sessionValidation.isLogin, roleValidation.requiredRole([process.env.SUPER_ADMIN, process.env.ADMIN]))
 
 specialistRoute
             .route("/")
-            //@specialist?page=1&limit=5
-            .get(getSpecialists)
             //@specialist
             .post(specialistVaidation.validationRules, validation.validate, createSpecialist)
             //@specialist?id=<>

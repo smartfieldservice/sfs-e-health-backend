@@ -2,9 +2,24 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 //@function for create an Authentication token for an account using jwt
-const generateAuthToken = (id, email, role) => {
-    return jwt.sign({ id, email, role }, process.env.JWT_SECRET, { expiresIn: "14d" });
-};
+const authToken = ({ id, email, role, phone}) => {
+    
+    let tokenObj = {};
+
+    if(id){
+        tokenObj.id = id;
+    }
+    if(email){
+        tokenObj.email = email;
+    }
+    if(role){
+        tokenObj.role = role;
+    }
+    if(phone){
+        tokenObj.phone = phone;
+    }
+    return jwt.sign(tokenObj, process.env.JWT_SECRET, { expiresIn: "14d" });
+}   
 
 //@function for verify Authentication token of an account using jwt
 const verifyAuthToken = (authToken) => {
@@ -66,13 +81,13 @@ const verifyPassword = async(inputPassword, hashPassword) => {
 }
 
 //@exports
-module.exports = {  generateAuthToken,
-                    generateSlug,
+module.exports = {  generateSlug,
                     pagination,
                     escapeString,
                     generateOTP,
                     generateRandomNumber,
                     hashedPassword,
                     verifyPassword,
-                    verifyAuthToken
+                    verifyAuthToken,
+                    authToken
                 }

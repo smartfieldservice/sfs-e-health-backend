@@ -46,6 +46,11 @@ const userSchema = mongoose.Schema({
     },
     otpExpiresAt: { 
         type: Date 
+    },
+    role:{ 
+        type:String,
+        enum : ['user'],
+        default : "user"
     }
 },{
     toJSON : {

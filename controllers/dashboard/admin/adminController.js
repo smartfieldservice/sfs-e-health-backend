@@ -57,7 +57,8 @@ const loginAdmin = async(req,res) => {
            res.status(200).json({  message: 'Login successfull', 
                 id : admin.id, 
                 email : admin.email,
-                token : functions.generateAuthToken(admin.id, email, admin.role)
+                role : admin.role,
+                token : functions.authToken({id : admin.id, email, role : admin.role})
             });
         }
     } catch (error) {

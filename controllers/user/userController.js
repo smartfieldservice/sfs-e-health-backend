@@ -66,9 +66,10 @@ const otpVerify = async(req, res) => {
 
                 //@send the response
                 res.status(200).json({  message: 'OTP verified successfully', 
-                    id : user.id, 
-                    phone , 
-                    token : functions.generateAuthToken(user._id, phone)
+                    id : user.id,
+                    phone ,
+                    role : process.env.USER,
+                    token : functions.authToken({ id : user._id, phone, role : process.env.USER })
                 });
 
             }else{

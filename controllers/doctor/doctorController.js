@@ -37,7 +37,7 @@ const getDoctors = async(req, res) => {
 
         doctors = await functions.pagination(page, limit, doctors);
         
-        res.status(200).json({ message : `${doctors.length} fields found` , data : doctors });
+        res.status(200).json({ total : doctors.length , data : doctors });
 
     } catch (error) {
         res.status(400).json({ message : error })
@@ -165,7 +165,7 @@ const searchDoctors = async(req,res) => {
                     { name : searchQuery }
                 ]
             });
-            res.status(200).json({ message : `${doctors.length} result found !`, data : doctors });  
+            res.status(200).json({ total : doctors.length , data : doctors });  
         }
     } catch (error) {
         res.status(400).json({ message : error })

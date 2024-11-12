@@ -1,11 +1,8 @@
-//@external module
-const axios = require('axios');
-
 //@internal module
 const { User } = require('../../models/modelExporter');
 const { functions } = require('../../utilities/utilityExporter');
 
-const otpRequest = async(req, res) => {
+const otpRequest = async (req, res) => {
 
     try {
 
@@ -13,77 +10,79 @@ const otpRequest = async(req, res) => {
 
         let user = await User.findOne({ phone });
 
-        if(user){
+        if (user) {
             user = await User.findOneAndUpdate({
-                    phone
-                },{
-                    otp,
-                    otpExpiresAt : new Date(Date.now() + 2 * 60 * 1000) //@opt validity 2 mins
-                },{
-                new : true
+                phone
+            }, {
+                otp,
+                otpExpiresAt: new Date(Date.now() + 2 * 60 * 1000) //@otp validity 2 mins
+            }, {
+                new: true
             });
-        }else{
+        } else {
             user = new User({
                 phone,
                 otp,
-                otpExpiresAt : new Date(Date.now() + 2 * 60 * 1000) //@opt validity 2 mins
+                otpExpiresAt: new Date(Date.now() + 2 * 60 * 1000) //@otp validity 2 mins
             });
             await user.save();
         }
 
-        res.status(200).json({ message: 'OTP sent successfully', otp  });
+        res.status(200).json({ message: 'OTP sent successfully', otp });
     } catch (error) {
-        res.status(400).json({ errors : error.message });
+        res.status(400).json({ errors: error.message });
     }
 }
 
 
-const otpVerify = async(req, res) => {
-    
+const otpVerify = async (req, res) => {
+
     try {
-        
+
         const { phone, otp } = req.body;
 
         let user = await User.findOne({ phone });
 
-        if(user){
+        if (user) {
 
-            if(user.otpExpiresAt < Date.now()){
+            if (user.otpExpiresAt < Date.now()) {
                 return res.status(400).json({ message: 'OTP has expired' });
             }
 
-            if(otp === user.otp){
+            if (otp === user.otp) {
 
                 //@invalidate the otp
                 user = await User.findOneAndUpdate({
-                        phone
-                    },{
-                        opt : "",
-                        otpExpiresAt: null
-                    },{
-                        new :true
+                    phone
+                }, {
+                    otp: "",
+                    otpExpiresAt: null
+                }, {
+                    new: true
                 });
 
                 //@send the response
-                res.status(200).json({  message: 'OTP verified successfully', 
-                    id : user.id,
-                    phone ,
-                    role : process.env.USER,
-                    token : functions.authToken({ id : user._id, phone, role : process.env.USER })
+                res.status(200).json({
+                    message: 'OTP verified successfully',
+                    id: user.id,
+                    phone,
+                    role: process.env.USER,
+                    token: functions.authToken({ id: user._id, phone, role: process.env.USER })
                 });
 
-            }else{
+            } else {
                 res.status(400).json({ message: 'Invalid OTP' });
             }
-        }else{
+        } else {
             return res.status(404).json({ message: 'Not found' });
         }
     } catch (error) {
-        res.status(400).json({ errors : error.message });
+        res.status(400).json({ errors: error.message });
     }
 }
 
 //@exports
-module.exports = {  otpRequest,
-                    otpVerify
-                }
+module.exports = {
+    otpRequest,
+    otpVerify
+}
